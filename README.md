@@ -2,6 +2,8 @@
 
 A modern, full-stack inventory management application built with Next.js 14, TypeScript, and Tailwind CSS.
 
+![Inventory app dark mode orders screen](preview/inventory%20app.png)
+
 ## Features
 
 - 📦 **Inventory Management**: Add, edit, delete, and view inventory items

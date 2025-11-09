@@ -7,18 +7,12 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { searchParams } = new URL(request.url);
-    const virtual = searchParams.get('virtual') !== 'false'; // Default to true
-    
-    const response = await fetch(
-      `${API_BASE_URL}/api/orders/${params.id}/purchase?virtual=${virtual}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/api/orders/${params.id}/purchase`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     if (!response.ok) {
       return NextResponse.json(

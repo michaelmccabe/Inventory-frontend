@@ -210,11 +210,11 @@ export default function OrdersPage() {
     }
   };
 
-  const handlePurchaseOrder = async (orderId: number, virtual: boolean = true) => {
+  const handlePurchaseOrder = async (orderId: number) => {
     try {
       setIsSubmitting(true);
       setError(null);
-      await apiClient.purchaseOrder(orderId, virtual);
+      await apiClient.purchaseOrder(orderId);
       showSuccessMessage(`Order #${orderId} purchased successfully!`);
 
       await loadOrders();
@@ -224,9 +224,6 @@ export default function OrdersPage() {
       if (editingOrderId === orderId) {
         prefillBuilderFromOrder(refreshedOrder);
       }
-
-      // Refresh inventory numbers so the builder reflects updated stock levels
-      await loadItems();
     } catch (err) {
       setError('Failed to purchase order.');
       console.error('Error purchasing order:', err);
@@ -512,22 +509,13 @@ export default function OrdersPage() {
 
                 <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                   {selectedOrder.status === OrderStatus.SAVED ? (
-                    <>
-                      <button
-                        onClick={() => selectedOrder.id != null && handlePurchaseOrder(selectedOrder.id, true)}
-                        disabled={isSubmitting}
-                        className="flex items-center justify-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400"
-                      >
-                        <Check className="w-4 h-4 mr-2" /> Purchase (Virtual)
-                      </button>
-                      <button
-                        onClick={() => selectedOrder.id != null && handlePurchaseOrder(selectedOrder.id, false)}
-                        disabled={isSubmitting}
-                        className="flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400"
-                      >
-                        <Check className="w-4 h-4 mr-2" /> Purchase (Real)
-                      </button>
-                    </>
+                    <button
+                      onClick={() => selectedOrder.id != null && handlePurchaseOrder(selectedOrder.id)}
+                      disabled={isSubmitting}
+                      className="flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400"
+                    >
+                      <Check className="w-4 h-4 mr-2" /> Purchase Order
+                    </button>
                   ) : (
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       This order has already been purchased.

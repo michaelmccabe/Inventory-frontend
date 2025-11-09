@@ -60,12 +60,8 @@ class ApiClient {
     return response.data;
   }
 
-  async purchaseOrder(id: number, virtual: boolean = true): Promise<Order> {
-    const response = await this.client.post<Order>(
-      `/api/orders/${id}/purchase`,
-      null,
-      { params: { virtual } }
-    );
+  async purchaseOrder(id: number): Promise<Order> {
+    const response = await this.client.post<Order>(`/api/orders/${id}/purchase`);
     return response.data;
   }
 }

@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Force light theme for all inputs and form elements */
+input,
+textarea,
+select {
+  color: #111827 !important; /* gray-900 */
+  background-color: #ffffff !important; /* white */
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important; /* gray-400 */
+}
+
+/* Dark mode styles */
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 17, 24, 39;
+}
+
+.dark body {
+  background: rgb(17, 24, 39); /* gray-900 */
+}
+
+/* Keep inputs readable in dark mode - use dark backgrounds */
+.dark input,
+.dark textarea,
+.dark select {
+  color: #f3f4f6 !important; /* gray-100 */
+  background-color: #374151 !important; /* gray-700 */
+  border-color: #4b5563; /* gray-600 */
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #9ca3af !important; /* gray-400 */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

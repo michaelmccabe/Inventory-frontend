@@ -217,13 +217,14 @@ export default function OrdersPage() {
       await apiClient.purchaseOrder(orderId);
       showSuccessMessage(`Order #${orderId} purchased successfully!`);
 
-      await loadOrders();
-      const refreshedOrder = await apiClient.getOrderById(orderId);
-      setSelectedOrder(refreshedOrder);
+        await loadOrders();
+        await loadItems(); // Refresh available items after purchase
+        const refreshedOrder = await apiClient.getOrderById(orderId);
+        setSelectedOrder(refreshedOrder);
 
-      if (editingOrderId === orderId) {
-        prefillBuilderFromOrder(refreshedOrder);
-      }
+        if (editingOrderId === orderId) {
+          prefillBuilderFromOrder(refreshedOrder);
+        }
     } catch (err) {
       setError('Failed to purchase order.');
       console.error('Error purchasing order:', err);
